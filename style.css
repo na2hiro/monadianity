@@ -1,0 +1,37 @@
+body{
+	padding: 2% 10%;
+	font-size: large;
+}
+h1{  
+    border-left:7px solid #ccc;  
+    border-bottom:1px solid #ccc;  
+    padding:.6em .8em;
+	text-shadow: 3px 3px 5px #999;
+	font-family: cursive;
+}  
+h2{
+	margin-top: 60px;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	padding:.8em .9em;
+	text-shadow: 3px 3px 5px #999;
+}
+h3{  
+    background:#eee;  
+    border-left:7px double #ccc;  
+    padding:.8em .9em;
+	text-shadow: 3px 3px 5px #999;
+}
+div.figure{text-align: center;}
+dt::before{content:"Q. "; font-weight: bold; font-size: larger;}
+dt{
+	margin-top: 20px; margin-bottom: 20px;
+	text-shadow: 2px 2px 3px #999;
+}
+dd{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+dd::before{content:"A. "; font-weight: bold; font-size: larger;}
+code{background-color: rgba(0, 0, 0, 0.07)}
+span.monad{font-family: cursive;}

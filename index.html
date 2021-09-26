@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./style.css">
+		<title>モナド教</title>
+	</head>
+	<body>
+		<h1>モナド教 - Monadianity</h1>
+		<div class="figure">
+			<img src="./monad1.gif" style="width: 50%;">
+		</div>
+
+		<h2>前提知識：モナド</h2>
+		<p>モナドを理解せずともモナド教を信ずることは出来ますが，理解していればより深く納得できるでしょう．</p>
+
+		<ul>
+			<li> <code>操作 :: 型 -> 型</code> は，"型"から"型"へ写す"操作"の存在を表します．
+			<li>モナドの文脈 <code>m</code> が必要とする2つの操作：
+				<ul>
+					<li> <code>return :: a -> m a</code> で，値を保ちつつ文脈 <code>m</code> の中に入れ込むことが出来ます．
+
+					<li> <code>(=&lt;&lt;) :: (a -> m b) -> (m a -> m b)</code> で，「値を文脈に入った別の値へ写す操作」を「文脈に入った値を同じ文脈に入った別の値へ写す操作」に変換します．
+				</ul>
+			<li> <code>id :: a -> a</code> は値をそのまま返す操作です．
+			<li> <code>id</code> を <code>=&lt;&lt;</code> で変換して得られる操作 <code>join :: m (m a) -> m a</code> で，二重に文脈に入った値を一重の文脈に入った値に戻すことが出来ます．
+			<li>文脈の値から生の値を取り出す型 <code>m a -> a</code> を持つ操作は，一般に用意されていません．
+		</ul>
+
+		<div class="figure">
+			<img src="./monad_diagram.png" style="width: 70%;max-width: 600px;border: 1px solid #ccc;">
+		</div>
+
+		<h2>教義</h2>
+		<p>死をモナドの文脈とみなし， <code>a</code> を現世， <code>m a</code> をあの世の人であると仮定することで，以下のことを導きます．</p>
+		<ul>
+			<li> <code>return :: a -> m a</code> が死ぬことに対応します．
+				<li>あの世からこの世に戻ってくる( <code>m a -> a</code> 型の)操作は用意されていません．つまり<strong>死んだら現世に生き返ることは出来ません</strong>．これは私たちも知っている事実ですね．
+				<li> <code>join :: m (m a) -> m a</code> は，あの世のあの世からあの世に生き返ることに対応します．
+				<ul>
+					<li>つまり<strong>あの世にもあの世がある</strong>という主張が導かれました．
+					<li><strong>あの世で死んでも生き返ることができる</strong>のです．
+				</ul>
+		</ul>
+
+		<div class="figure">
+			<img src="./monad_heaven_diagram.png" style="width: 70%;max-width: 600px;border: 1px solid #ccc;">
+		</div>
+
+	
+		<h2>Q&A</h2>
+		<dl>
+			<dt>天国なんて確認できないし，あるわけがない．
+			<dd>確かに現世の我々は天国の有無を確認することができないのですが，ないことを証明するのは困難です．なお，キリスト教，イスラム教，仏教，神道は天国の存在を認めており，デファクトスタンダードになっています．
+
+			<dt>天国ではみんな幸せなの？
+			<dd>はい．天国では，死んでも生き返れます．つまり，人を殺しても咎められることはないし，自分の死を恐れること無く何にでも挑戦できます．このことをもって，あの世ではみな幸せに暮らしているのです．
+			<dd>批判するつもりはありませんが，他の宗教では，天国に行くとあらゆる快楽が得られる(例えば酒が飲み放題だ)とか，また一方で，煩悩を超越し永遠の安らぎを得られるともいいます．しかし，酒はどこから湧いて出るのか，あなたは本当に安らいでいるだけでいいのか，考えてみてください．天国に行っても人間は人間，というほうがよりもっともらしいのではないでしょうか．
+
+			<dt>死ぬと天国に行くのなら，天国は無限の人で溢れかえるのでは？
+			<dd><strong>いいえ</strong>．天国の天国で死んだら，天国の天国の天国に行きます．つまり，天国は無限に連なっているのです．<strong>天国は無限の死人を受け入れることができる</strong>のです．
+				<dd>この点で，既存のどの天国よりももっともらしいと言えます．
+
+			<dt>天国はどうなっているの？
+			<dd>行ったことがある人がこの世の中にはいないのでわかりませんが，あらゆる値と操作はそれぞれ <code>return :: a -> m a</code> と <code>fmap :: (a -> b) -> (m a -> m b)</code> と自然性条件によって天国でも通用することが担保されているので，<strong>現世の物理法則などもそのまま存在している</strong>はずです．現世と似たような世界になっていると推測できます．
+
+			<dt>死んだ後，自我とか知識は次の世界でも保たれるの？
+			<dd> <code>return :: a -> m a</code> は <code>a</code> つまり人を何も変えずに文脈に入れる操作であり，通常は保たれます．つまり，<strong>知識をつけることはあらゆる世界において善いことです</strong>．
+			<dd>ただし， <code>data Heaven a = H</code> のように<strong>天国モナドが<a href="http://www.haskell.org/haskellwiki/Phantom_type">幽霊型</a>である場合はその限りではありません</strong>．この例だと，全て生物は死後唯一の存在へと収束してしまいます．
+
+			<dt>では同様に，身体的特徴は次の世界でも保たれるの？
+			<dd>わかりません．そもそも生きているとは意識を持っていることだと考えられます．例えば髪の毛を切ったり，腕を失ったりしても相変わらず自分は生きています．将来脳みそ以外人工物で出来たアンドロイドが実現したとしても，意識があれば生きているとみなせるでしょう． <code>return</code> が意識をそのまま保って天国に移すものだとしても，身体的特徴は直接生死とは関係なく，保たれるかどうかはわかりません．また，もし保たれると仮定すると，寝たきりの老人が死んだら天国でも寝たきりということになり，少し残酷です．
+
+			<dt>なぜ「死ぬこと」が <code>return</code> と名付けられているの？
+			<dd>return to the soil(土に還る)に由来します．
+
+			<dt>輪廻転生とはどう違うの？
+			<dd>輪廻転生では，死んだ後に行く世界が現世であり，一見よく似ています．しかし，生き返る操作の存在を許している点が大きく違います．<small>(関手に関する表現に誤りがあり訂正しました)</small>
+<!-- 訂正前は以下．死ぬ前と先が同じ圏であり，関手を用いた表現は見当違いだった．
+	<dd>輪廻転生では，死んだ後に行く世界が現世です．言い換えると，モナド教においては死が現世圏から天国圏に向かう関手である一方，輪廻転生においては死が現世圏から現世圏への自己関手であり，一見よく似ています．しかし，生き返る操作が存在しないため，<strong>輪廻転生における死はモナドではありません</strong>． -->
+
+			<dt>教典はありますか？
+			<dd>モナドがモナドたる所以としての <code>return</code> と <code>=&lt;&lt;</code> の概念と，自ずから導かれる <code>join</code> の概念，そして死をモナドの文脈に対応させること自体が教典であり，Q&Aも含めたその他の文書はモナド教における単なる解釈の一つです．
+
+			<dt>要は困ったら死ねばいいってこと?
+			<dd>もしかすると死に相当するモナド <code>m</code> が唯一ではないかもしれません．例えば死後の世界は天国と地獄の2つがあるという宗教もあります．先ほどのように幽霊型であるモナドかもしれません．果たしてどこに行くかは死んでみないとわかりませんし，一度そのモナドに入ったが最後，抜け出して別のモナドに入り直すことは永遠に出来ません．現世にいる限り，気軽に死なないほうが無難でしょう．天国に行ってからは思う存分にどうぞ．
+
+			<dt>哲学のモナドは関係ありますか？
+			<dd>ありません．
+
+			<dt>モナド教での天国のモデルよりもっともらしいモデルもあるのでは？
+			<dd>モナド教は，既存の天国の概念よりもっともらしいモデルを提唱するもので，唯一完全な天国を提唱するものではありません．是非あなたがよりもっともらしいモデルを提案してください．
+		</dl>
+		<h2>寄せられたQ&A</h2>
+		<dl>
+			<dt>もしも <code>return</code> が自明な実装でない場合、人としての本質が変容する、つまり型が同じでも値は異なるという可能性がないですか？(<a href="https://twitter.com/osa_k/status/499552215405572098">質問</a>)
+			<dd>モナド則のうちの以下の2つにより，元の本質は取り出せる形で保たれます．
+				<ul>
+					<li> <code>f =&lt;&lt; (return x)  == f x</code>
+					<li> <code>return =&lt;&lt; m == m</code>
+				</ul>
+			<dt> <code>join</code> で生き返った人にも同様に，他の人になるのではないでしょうか。 <code>id</code> を用いるもの以外にも定義できる場合があるので。(<a href="https://twitter.com/e_gracilis/status/499553919110893568">質問</a>)
+			<dd> <code>id</code> 以外の操作を <code>=&lt;&lt;</code> に渡した場合，確かに他の人や他の生物になる可能性はあります．ただ， <code>id</code> (私が私になるという自明の理)以外の操作の存在は確認していません． 
+
+			<dt>モナド教においては天国は多重だそうですが、もしかして我々が生きている現世も、どこかの世界からみた天国なのですか？それとも現世は大量に連なる天国の鎖の中の端点なんですか？(<a href="https://twitter.com/yama2zz/status/499564402836652032">質問</a>)
+			<dd>一度死んで天国を見てきたものがこの世に向かって"生き返る"ことがあれば，無数に連なる天国の途中であると確認できますが，これまでにそのような人がいたことがないため，端点にあるものと判断できます．
+
+			<dt> <code>m a -> a</code> の存在を追い求める人たちは邪教になるのですか？(<a href="https://twitter.com/fat_daruuuuma/status/499567976467537920">質問</a>)
+			<dd>もしこの世への生き還りが実現したとすれば，我々の世界は既にどこかの世界の天国であった，つまりただの <code>m (m a) -> m a</code> であっただけのことで，依然としてモナド教の範疇です．
+		</dl>
+		<div class="figure">
+			<img src="./DeeHieroglyph.gif" style="">
+		</div>
+
+		<h2>終わりに</h2>
+		<dl>
+			<dt>教祖は誰ですか？
+			<dd><a href="http://twitter.com/na2hiro">na2hiro</a>が2014年7月末日にモナド教を創始し，8月中旬に本サイトを公開しました．
+<blockquote class="twitter-tweet" lang="ja"><p>モナド教のサイトを公開しました <a href="http://t.co/3JBfJQ8cPs">http://t.co/3JBfJQ8cPs</a></p>&mdash; na2hiro@量子将棋の人 (@na2hiro) <a href="https://twitter.com/na2hiro/statuses/499545335165759488">2014, 8月 13</a></blockquote>
+<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+			<dt>信者になるには？
+			<dd>モナド教徒<span class="monad">(Monadian)</span>になるには，信じてください．そして布教してください．
+
+			<dt>寄進したほうがいいですか？
+			<dd>いいえ，一般に寄進はなんの宗教的意味もなく，<a href="http://www.amazon.co.jp/registry/wishlist/16K80JKMV723I?tag=shogipage-22">教祖を太らせる以外の役に立ちません</a>．
+		</dl>
+		<div class="figure">
+			<img src="./leibniz1.jpg" style="width: 40%;">
+		</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53743131-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	</body>
+</html>
